@@ -5,7 +5,7 @@
     "angularfire2": "^2.0.0-alpha.13",
     "es6-promise": "3.0.2",
     "es6-shim": "0.33.13",
-    "firebase": "^2.4.1",
+    "firebase": "2.4.1",
     "ionic-angular": "2.0.0-beta.3",
     "ionic-native": "^1.1.0",
     "ionicons": "3.0.0-alpha.3",
@@ -30,8 +30,9 @@
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard",
+    "cordova-plugin-inappbrowser",
     "com.unarin.cordova.beacon",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-local-notifications-mm"
   ],
   "cordovaPlatforms": [
     "ios",

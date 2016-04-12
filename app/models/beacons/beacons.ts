@@ -32,16 +32,18 @@ export class Beacons {
               }
 
               if(this.platform.is('ios')) {
-                 cordova.plugins.notification.local.promptForPermission();
+                 cordova.plugins.notification.local.registerPermission();
+                 //cordova.plugins.notification.local.promptForPermission();
                 //window.plugins.notification.local.promptForPermission();
               }
             
               var delegate = new cordova.plugins.locationManager.Delegate();
               
               delegate.didRangeBeaconsInRegion = function (pluginResult) {
+               console.log("ENTER******** didRangeBeaconsInRegion *********");
                  
                  if(pluginResult.beacons.length > 0) {
-                    //console.log("******** didRangeBeaconsInRegion *********");
+                    console.log("******** didRangeBeaconsInRegion *********");
                     var major;
                     var color;
               
@@ -101,6 +103,7 @@ export class Beacons {
           
               var beaconRegion = new cordova.plugins.locationManager.BeaconRegion("estimote", "b9407f30-f5f8-466e-aff9-25556b57fe6d");
               
+              console.log("About to range beacons") 
               cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
                 .fail(console.error)
                 .done();

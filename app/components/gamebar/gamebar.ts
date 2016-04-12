@@ -253,7 +253,7 @@ class Cluemap {
         private story: Story
     ) {
         this.init(story.story[story.story.currentApp]);
-      //  this.beacons.start();
+        this.beacons.start();
 
     }
     init(app) {

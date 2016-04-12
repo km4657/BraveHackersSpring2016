@@ -52,6 +52,7 @@ var MyApp = (function () {
     ], MyApp);
     return MyApp;
 }());
+
 },{"./models/beacons/beacons":9,"./models/story/story":10,"./models/user/user":11,"./pages/start/start":12,"angularfire2":256,"es6-shim":266,"ionic-angular":343,"ionic-native":365}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -112,6 +113,7 @@ var Analysis = (function () {
     return Analysis;
 }());
 exports.Analysis = Analysis;
+
 },{"../../models/story/story":10,"angular2/core":15,"ionic-angular":343}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -267,12 +269,13 @@ var Messages = (function () {
         var messages = this;
         messages.app = app;
         messages.dialog = messages.app.dialog;
+        var username = messages.story.story.userName.toLowerCase();
         if (messages.app.dialog[0].audio) {
-            if (messages.story.story.userName === 'Mauricio') {
+            if (username === 'mauricio') {
                 messages.app.dialog[0].audio = messages.app.dialog[0].audio.replace("USERNAME", '');
             }
             else {
-                messages.app.dialog[0].audio = messages.app.dialog[0].audio.replace("USERNAME", messages.story.story.userName);
+                messages.app.dialog[0].audio = messages.app.dialog[0].audio.replace("USERNAME", username);
             }
         }
         messages.dialog = messages.app.dialog;
@@ -363,7 +366,7 @@ var Cluemap = (function () {
         this.beacons = beacons;
         this.story = story;
         this.init(story.story[story.story.currentApp]);
-        //  this.beacons.start();
+        this.beacons.start();
     }
     Cluemap.prototype.init = function (app) {
         if (!app) {
@@ -484,6 +487,7 @@ var GenericTest = (function () {
     return GenericTest;
 }());
 exports.GenericTest = GenericTest;
+
 },{"../../components/analysis/analysis":2,"../../components/hypothesis/hypothesis":4,"../../components/quiz/quiz":6,"../../components/status/status":7,"../../components/test/test":8,"../../models/beacons/beacons":9,"../../models/story/story":10,"angular2/core":15,"ionic-angular":343}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -537,6 +541,7 @@ var Hypothesis = (function () {
     return Hypothesis;
 }());
 exports.Hypothesis = Hypothesis;
+
 },{"../../models/story/story":10,"angular2/core":15,"ionic-angular":343}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -556,7 +561,7 @@ var story_1 = require('../../models/story/story');
 var Map = (function () {
     function Map(story, beacons) {
         this.beacons = beacons;
-        //beacons.start()
+        beacons.start();
         this.displayMap();
         this.story = story;
     }
@@ -703,6 +708,7 @@ var Map = (function () {
     return Map;
 }());
 exports.Map = Map;
+
 },{"../../models/beacons/beacons":9,"../../models/story/story":10,"angular2/core":15,"ionic-angular":343}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -757,6 +763,7 @@ var Quiz = (function () {
     return Quiz;
 }());
 exports.Quiz = Quiz;
+
 },{"angular2/core":15,"ionic-angular":343}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -789,6 +796,7 @@ var Status = (function () {
     return Status;
 }());
 exports.Status = Status;
+
 },{"angular2/core":15}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -839,6 +847,7 @@ var Test = (function () {
     return Test;
 }());
 exports.Test = Test;
+
 },{"../../models/story/story":10,"angular2/core":15,"ionic-angular":343}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -874,12 +883,13 @@ var Beacons = (function () {
                 "39109": "blueberry"
             };
             if (_this.platform.is('ios')) {
-                cordova.plugins.notification.local.promptForPermission();
+                cordova.plugins.notification.local.registerPermission();
             }
             var delegate = new cordova.plugins.locationManager.Delegate();
             delegate.didRangeBeaconsInRegion = function (pluginResult) {
+                console.log("ENTER******** didRangeBeaconsInRegion *********");
                 if (pluginResult.beacons.length > 0) {
-                    //console.log("******** didRangeBeaconsInRegion *********");
+                    console.log("******** didRangeBeaconsInRegion *********");
                     var major;
                     var color;
                     for (var i = 0; i < pluginResult.beacons.length; i++) {
@@ -924,6 +934,7 @@ var Beacons = (function () {
             cordova.plugins.locationManager.setDelegate(delegate);
             cordova.plugins.locationManager.requestWhenInUseAuthorization();
             var beaconRegion = new cordova.plugins.locationManager.BeaconRegion("estimote", "b9407f30-f5f8-466e-aff9-25556b57fe6d");
+            console.log("About to range beacons");
             cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
                 .fail(console.error)
                 .done();
@@ -936,6 +947,7 @@ var Beacons = (function () {
     return Beacons;
 }());
 exports.Beacons = Beacons;
+
 },{"../../models/story/story":10,"angular2/core":15,"angular2/src/core/application_ref":98,"ionic-angular":343}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1073,7 +1085,8 @@ exports.Story = Story;
         "beacon" : "blueberry",
         "found" :  false
     }*/ 
-},{"../../components/gamebar/gamebar":3,"../../models/user/user":11,"angular2/core":15,"angular2/http":16,"rxjs/Observable":405}],11:[function(require,module,exports){
+
+},{"../../components/gamebar/gamebar":3,"../../models/user/user":11,"angular2/core":15,"angular2/http":16,"rxjs/Observable":414}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1300,6 +1313,7 @@ exports.User = User;
   }
 }
                               */ 
+
 },{"angular2/core":15,"angularfire2":256}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1368,6 +1382,7 @@ var Start = (function () {
     return Start;
 }());
 exports.Start = Start;
+
 },{"../../components/gamebar/gamebar":3,"../../components/map/map":5,"../../components/status/status":7,"../../models/story/story":10,"../../models/user/user":11,"ionic-angular":343}],13:[function(require,module,exports){
 'use strict';function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -27610,7 +27625,7 @@ var EventEmitter = (function (_super) {
     return EventEmitter;
 })(Subject_1.Subject);
 exports.EventEmitter = EventEmitter;
-},{"angular2/src/facade/lang":192,"angular2/src/facade/promise":194,"rxjs/Observable":405,"rxjs/Subject":407,"rxjs/observable/PromiseObservable":410,"rxjs/operator/toPromise":412}],186:[function(require,module,exports){
+},{"angular2/src/facade/lang":192,"angular2/src/facade/promise":194,"rxjs/Observable":414,"rxjs/Subject":416,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":421}],186:[function(require,module,exports){
 'use strict';/**
  * JS version of browser APIs. This library can only run in the browser.
  */
@@ -29001,7 +29016,7 @@ var JSONPBackend_ = (function (_super) {
     return JSONPBackend_;
 })(JSONPBackend);
 exports.JSONPBackend_ = JSONPBackend_;
-},{"../base_response_options":200,"../enums":201,"../interfaces":205,"../static_response":207,"./browser_jsonp":195,"angular2/core":15,"angular2/src/facade/exceptions":189,"angular2/src/facade/lang":192,"rxjs/Observable":405}],198:[function(require,module,exports){
+},{"../base_response_options":200,"../enums":201,"../interfaces":205,"../static_response":207,"./browser_jsonp":195,"angular2/core":15,"angular2/src/facade/exceptions":189,"angular2/src/facade/lang":192,"rxjs/Observable":414}],198:[function(require,module,exports){
 'use strict';var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29129,7 +29144,7 @@ var XHRBackend = (function () {
     return XHRBackend;
 })();
 exports.XHRBackend = XHRBackend;
-},{"../base_response_options":200,"../enums":201,"../headers":202,"../http_utils":204,"../static_response":207,"./browser_xhr":196,"angular2/core":15,"angular2/src/facade/lang":192,"rxjs/Observable":405}],199:[function(require,module,exports){
+},{"../base_response_options":200,"../enums":201,"../headers":202,"../http_utils":204,"../static_response":207,"./browser_xhr":196,"angular2/core":15,"angular2/src/facade/lang":192,"rxjs/Observable":414}],199:[function(require,module,exports){
 'use strict';var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -35297,7 +35312,7 @@ var FirebaseAuth = (function (_super) {
 })(ReplaySubject_1.ReplaySubject);
 exports.FirebaseAuth = FirebaseAuth;
 
-},{"../tokens":260,"../utils/utils":265,"./auth_backend":258,"angular2/core":15,"rxjs/subject/ReplaySubject":417}],258:[function(require,module,exports){
+},{"../tokens":260,"../utils/utils":265,"./auth_backend":258,"angular2/core":15,"rxjs/subject/ReplaySubject":426}],258:[function(require,module,exports){
 var AuthBackend = (function () {
     function AuthBackend() {
     }
@@ -35638,7 +35653,7 @@ var FirebaseListObservable = (function (_super) {
 })(Observable_1.Observable);
 exports.FirebaseListObservable = FirebaseListObservable;
 
-},{"rxjs/Observable":405}],263:[function(require,module,exports){
+},{"rxjs/Observable":414}],263:[function(require,module,exports){
 var firebase_object_observable_1 = require('./firebase_object_observable');
 var Firebase = require('firebase');
 function FirebaseObjectFactory(absoluteUrl, _a) {
@@ -35677,7 +35692,7 @@ var FirebaseObjectObservable = (function (_super) {
 })(Observable_1.Observable);
 exports.FirebaseObjectObservable = FirebaseObjectObservable;
 
-},{"rxjs/Observable":405}],265:[function(require,module,exports){
+},{"rxjs/Observable":414}],265:[function(require,module,exports){
 function isPresent(obj) {
     return obj !== undefined && obj !== null;
 }
@@ -64197,7 +64212,7 @@ function getEventObservable(event) {
     });
 }
 
-},{"./plugin":395,"rxjs/Observable":405}],375:[function(require,module,exports){
+},{"./plugin":395,"rxjs/Observable":404}],375:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66872,7 +66887,7 @@ function CordovaProperty(target, key, descriptor) {
 }
 exports.CordovaProperty = CordovaProperty;
 
-},{"../util":403,"rxjs/Observable":405}],396:[function(require,module,exports){
+},{"../util":403,"rxjs/Observable":404}],396:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67478,6 +67493,480 @@ exports.get = get;
 ;
 
 },{}],404:[function(require,module,exports){
+var Subscriber_1 = require('./Subscriber');
+var root_1 = require('./util/root');
+var SymbolShim_1 = require('./util/SymbolShim');
+var rxSubscriber_1 = require('./symbol/rxSubscriber');
+/**
+ * A representation of any set of values over any amount of time. This the most basic building block
+ * of RxJS.
+ *
+ * @class Observable<T>
+ */
+var Observable = (function () {
+    /**
+     * @constructor
+     * @param {Function} subscribe the function that is
+     * called when the Observable is initially subscribed to. This function is given a Subscriber, to which new values
+     * can be `next`ed, or an `error` method can be called to raise an error, or `complete` can be called to notify
+     * of a successful completion.
+     */
+    function Observable(subscribe) {
+        this._isScalar = false;
+        if (subscribe) {
+            this._subscribe = subscribe;
+        }
+    }
+    /**
+     * @method lift
+     * @param {Operator} operator the operator defining the operation to take on the observable
+     * @returns {Observable} a new observable with the Operator applied
+     * @description creates a new Observable, with this Observable as the source, and the passed
+     * operator defined as the new observable's operator.
+     */
+    Observable.prototype.lift = function (operator) {
+        var observable = new Observable();
+        observable.source = this;
+        observable.operator = operator;
+        return observable;
+    };
+    /**
+     * @method Symbol.observable
+     * @returns {Observable} this instance of the observable
+     * @description an interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
+     */
+    Observable.prototype[SymbolShim_1.SymbolShim.observable] = function () {
+        return this;
+    };
+    /**
+     * @method subscribe
+     * @param {Observer|Function} observerOrNext (optional) either an observer defining all functions to be called,
+     *  or the first of three possible handlers, which is the handler for each value emitted from the observable.
+     * @param {Function} error (optional) a handler for a terminal event resulting from an error. If no error handler is provided,
+     *  the error will be thrown as unhandled
+     * @param {Function} complete (optional) a handler for a terminal event resulting from successful completion.
+     * @returns {Subscription} a subscription reference to the registered handlers
+     * @description registers handlers for handling emitted values, error and completions from the observable, and
+     *  executes the observable's subscriber function, which will take action to set up the underlying data stream
+     */
+    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+        var subscriber;
+        if (observerOrNext && typeof observerOrNext === 'object') {
+            if (observerOrNext instanceof Subscriber_1.Subscriber) {
+                subscriber = observerOrNext;
+            }
+            else if (observerOrNext[rxSubscriber_1.rxSubscriber]) {
+                subscriber = observerOrNext[rxSubscriber_1.rxSubscriber]();
+            }
+            else {
+                subscriber = new Subscriber_1.Subscriber(observerOrNext);
+            }
+        }
+        else {
+            var next = observerOrNext;
+            subscriber = Subscriber_1.Subscriber.create(next, error, complete);
+        }
+        subscriber.add(this._subscribe(subscriber));
+        return subscriber;
+    };
+    /**
+     * @method forEach
+     * @param {Function} next a handler for each value emitted by the observable
+     * @param {any} [thisArg] a `this` context for the `next` handler function
+     * @param {PromiseConstructor} [PromiseCtor] a constructor function used to instantiate the Promise
+     * @returns {Promise} a promise that either resolves on observable completion or
+     *  rejects with the handled error
+     */
+    Observable.prototype.forEach = function (next, thisArg, PromiseCtor) {
+        if (!PromiseCtor) {
+            if (root_1.root.Rx && root_1.root.Rx.config && root_1.root.Rx.config.Promise) {
+                PromiseCtor = root_1.root.Rx.config.Promise;
+            }
+            else if (root_1.root.Promise) {
+                PromiseCtor = root_1.root.Promise;
+            }
+        }
+        if (!PromiseCtor) {
+            throw new Error('no Promise impl found');
+        }
+        var nextHandler;
+        if (thisArg) {
+            nextHandler = function nextHandlerFn(value) {
+                var _a = nextHandlerFn, thisArg = _a.thisArg, next = _a.next;
+                return next.call(thisArg, value);
+            };
+            nextHandler.thisArg = thisArg;
+            nextHandler.next = next;
+        }
+        else {
+            nextHandler = next;
+        }
+        var promiseCallback = function promiseCallbackFn(resolve, reject) {
+            var _a = promiseCallbackFn, source = _a.source, nextHandler = _a.nextHandler;
+            source.subscribe(nextHandler, reject, resolve);
+        };
+        promiseCallback.source = this;
+        promiseCallback.nextHandler = nextHandler;
+        return new PromiseCtor(promiseCallback);
+    };
+    Observable.prototype._subscribe = function (subscriber) {
+        return this.source._subscribe(this.operator.call(subscriber));
+    };
+    // HACK: Since TypeScript inherits static properties too, we have to
+    // fight against TypeScript here so Subject can have a different static create signature
+    /**
+     * @static
+     * @method create
+     * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
+     * @returns {Observable} a new cold observable
+     * @description creates a new cold Observable by calling the Observable constructor
+     */
+    Observable.create = function (subscribe) {
+        return new Observable(subscribe);
+    };
+    return Observable;
+})();
+exports.Observable = Observable;
+
+},{"./Subscriber":405,"./symbol/rxSubscriber":407,"./util/SymbolShim":408,"./util/root":410}],405:[function(require,module,exports){
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var noop_1 = require('./util/noop');
+var throwError_1 = require('./util/throwError');
+var tryOrOnError_1 = require('./util/tryOrOnError');
+var Subscription_1 = require('./Subscription');
+var rxSubscriber_1 = require('./symbol/rxSubscriber');
+var Subscriber = (function (_super) {
+    __extends(Subscriber, _super);
+    function Subscriber(destination) {
+        _super.call(this);
+        this.destination = destination;
+        this._isUnsubscribed = false;
+        if (!this.destination) {
+            return;
+        }
+        var subscription = destination._subscription;
+        if (subscription) {
+            this._subscription = subscription;
+        }
+        else if (destination instanceof Subscriber) {
+            this._subscription = destination;
+        }
+    }
+    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () {
+        return this;
+    };
+    Object.defineProperty(Subscriber.prototype, "isUnsubscribed", {
+        get: function () {
+            var subscription = this._subscription;
+            if (subscription) {
+                // route to the shared Subscription if it exists
+                return this._isUnsubscribed || subscription.isUnsubscribed;
+            }
+            else {
+                return this._isUnsubscribed;
+            }
+        },
+        set: function (value) {
+            var subscription = this._subscription;
+            if (subscription) {
+                // route to the shared Subscription if it exists
+                subscription.isUnsubscribed = Boolean(value);
+            }
+            else {
+                this._isUnsubscribed = Boolean(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Subscriber.create = function (next, error, complete) {
+        var subscriber = new Subscriber();
+        subscriber._next = (typeof next === 'function') && tryOrOnError_1.tryOrOnError(next) || noop_1.noop;
+        subscriber._error = (typeof error === 'function') && error || throwError_1.throwError;
+        subscriber._complete = (typeof complete === 'function') && complete || noop_1.noop;
+        return subscriber;
+    };
+    Subscriber.prototype.add = function (sub) {
+        // route add to the shared Subscription if it exists
+        var _subscription = this._subscription;
+        if (_subscription) {
+            _subscription.add(sub);
+        }
+        else {
+            _super.prototype.add.call(this, sub);
+        }
+    };
+    Subscriber.prototype.remove = function (sub) {
+        // route remove to the shared Subscription if it exists
+        if (this._subscription) {
+            this._subscription.remove(sub);
+        }
+        else {
+            _super.prototype.remove.call(this, sub);
+        }
+    };
+    Subscriber.prototype.unsubscribe = function () {
+        if (this._isUnsubscribed) {
+            return;
+        }
+        else if (this._subscription) {
+            this._isUnsubscribed = true;
+        }
+        else {
+            _super.prototype.unsubscribe.call(this);
+        }
+    };
+    Subscriber.prototype._next = function (value) {
+        var destination = this.destination;
+        if (destination.next) {
+            destination.next(value);
+        }
+    };
+    Subscriber.prototype._error = function (err) {
+        var destination = this.destination;
+        if (destination.error) {
+            destination.error(err);
+        }
+    };
+    Subscriber.prototype._complete = function () {
+        var destination = this.destination;
+        if (destination.complete) {
+            destination.complete();
+        }
+    };
+    Subscriber.prototype.next = function (value) {
+        if (!this.isUnsubscribed) {
+            this._next(value);
+        }
+    };
+    Subscriber.prototype.error = function (err) {
+        if (!this.isUnsubscribed) {
+            this._error(err);
+            this.unsubscribe();
+        }
+    };
+    Subscriber.prototype.complete = function () {
+        if (!this.isUnsubscribed) {
+            this._complete();
+            this.unsubscribe();
+        }
+    };
+    return Subscriber;
+})(Subscription_1.Subscription);
+exports.Subscriber = Subscriber;
+
+},{"./Subscription":406,"./symbol/rxSubscriber":407,"./util/noop":409,"./util/throwError":411,"./util/tryOrOnError":412}],406:[function(require,module,exports){
+var noop_1 = require('./util/noop');
+var Subscription = (function () {
+    function Subscription(_unsubscribe) {
+        this.isUnsubscribed = false;
+        if (_unsubscribe) {
+            this._unsubscribe = _unsubscribe;
+        }
+    }
+    Subscription.prototype._unsubscribe = function () {
+        noop_1.noop();
+    };
+    Subscription.prototype.unsubscribe = function () {
+        if (this.isUnsubscribed) {
+            return;
+        }
+        this.isUnsubscribed = true;
+        var unsubscribe = this._unsubscribe;
+        var subscriptions = this._subscriptions;
+        this._subscriptions = void 0;
+        if (unsubscribe) {
+            unsubscribe.call(this);
+        }
+        if (subscriptions != null) {
+            var index = -1;
+            var len = subscriptions.length;
+            while (++index < len) {
+                subscriptions[index].unsubscribe();
+            }
+        }
+    };
+    Subscription.prototype.add = function (subscription) {
+        // return early if:
+        //  1. the subscription is null
+        //  2. we're attempting to add our this
+        //  3. we're attempting to add the static `empty` Subscription
+        if (!subscription || (subscription === this) || (subscription === Subscription.EMPTY)) {
+            return;
+        }
+        var sub = subscription;
+        switch (typeof subscription) {
+            case 'function':
+                sub = new Subscription(subscription);
+            case 'object':
+                if (sub.isUnsubscribed || typeof sub.unsubscribe !== 'function') {
+                    break;
+                }
+                else if (this.isUnsubscribed) {
+                    sub.unsubscribe();
+                }
+                else {
+                    var subscriptions = this._subscriptions || (this._subscriptions = []);
+                    subscriptions.push(sub);
+                }
+                break;
+            default:
+                throw new Error('Unrecognized subscription ' + subscription + ' added to Subscription.');
+        }
+    };
+    Subscription.prototype.remove = function (subscription) {
+        // return early if:
+        //  1. the subscription is null
+        //  2. we're attempting to remove ourthis
+        //  3. we're attempting to remove the static `empty` Subscription
+        if (subscription == null || (subscription === this) || (subscription === Subscription.EMPTY)) {
+            return;
+        }
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.isUnsubscribed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+})();
+exports.Subscription = Subscription;
+
+},{"./util/noop":409}],407:[function(require,module,exports){
+var SymbolShim_1 = require('../util/SymbolShim');
+/**
+ * rxSubscriber symbol is a symbol for retreiving an "Rx safe" Observer from an object
+ * "Rx safety" can be defined as an object that has all of the traits of an Rx Subscriber,
+ * including the ability to add and remove subscriptions to the subscription chain and
+ * guarantees involving event triggering (can't "next" after unsubscription, etc).
+ */
+exports.rxSubscriber = SymbolShim_1.SymbolShim.for('rxSubscriber');
+
+},{"../util/SymbolShim":408}],408:[function(require,module,exports){
+var root_1 = require('./root');
+function polyfillSymbol(root) {
+    var Symbol = ensureSymbol(root);
+    ensureIterator(Symbol, root);
+    ensureObservable(Symbol);
+    ensureFor(Symbol);
+    return Symbol;
+}
+exports.polyfillSymbol = polyfillSymbol;
+function ensureFor(Symbol) {
+    if (!Symbol.for) {
+        Symbol.for = symbolForPolyfill;
+    }
+}
+exports.ensureFor = ensureFor;
+var id = 0;
+function ensureSymbol(root) {
+    if (!root.Symbol) {
+        root.Symbol = function symbolFuncPolyfill(description) {
+            return "@@Symbol(" + description + "):" + id++;
+        };
+    }
+    return root.Symbol;
+}
+exports.ensureSymbol = ensureSymbol;
+function symbolForPolyfill(key) {
+    return '@@' + key;
+}
+exports.symbolForPolyfill = symbolForPolyfill;
+function ensureIterator(Symbol, root) {
+    if (!Symbol.iterator) {
+        if (typeof Symbol.for === 'function') {
+            Symbol.iterator = Symbol.for('iterator');
+        }
+        else if (root.Set && typeof new root.Set()['@@iterator'] === 'function') {
+            // Bug for mozilla version
+            Symbol.iterator = '@@iterator';
+        }
+        else if (root.Map) {
+            // es6-shim specific logic
+            var keys = Object.getOwnPropertyNames(root.Map.prototype);
+            for (var i = 0; i < keys.length; ++i) {
+                var key = keys[i];
+                if (key !== 'entries' && key !== 'size' && root.Map.prototype[key] === root.Map.prototype['entries']) {
+                    Symbol.iterator = key;
+                    break;
+                }
+            }
+        }
+        else {
+            Symbol.iterator = '@@iterator';
+        }
+    }
+}
+exports.ensureIterator = ensureIterator;
+function ensureObservable(Symbol) {
+    if (!Symbol.observable) {
+        if (typeof Symbol.for === 'function') {
+            Symbol.observable = Symbol.for('observable');
+        }
+        else {
+            Symbol.observable = '@@observable';
+        }
+    }
+}
+exports.ensureObservable = ensureObservable;
+exports.SymbolShim = polyfillSymbol(root_1.root);
+
+},{"./root":410}],409:[function(require,module,exports){
+/* tslint:disable:no-empty */
+function noop() { }
+exports.noop = noop;
+
+},{}],410:[function(require,module,exports){
+(function (global){
+var objectTypes = {
+    'boolean': false,
+    'function': true,
+    'object': true,
+    'number': false,
+    'string': false,
+    'undefined': false
+};
+exports.root = (objectTypes[typeof self] && self) || (objectTypes[typeof window] && window);
+/* tslint:disable:no-unused-variable */
+var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
+var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
+var freeGlobal = objectTypes[typeof global] && global;
+if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
+    exports.root = freeGlobal;
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
+},{}],411:[function(require,module,exports){
+function throwError(e) { throw e; }
+exports.throwError = throwError;
+
+},{}],412:[function(require,module,exports){
+function tryOrOnError(target) {
+    function tryCatcher() {
+        try {
+            tryCatcher.target.apply(this, arguments);
+        }
+        catch (e) {
+            this.error(e);
+        }
+    }
+    tryCatcher.target = target;
+    return tryCatcher;
+}
+exports.tryOrOnError = tryOrOnError;
+
+},{}],413:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('./Observable');
 var Notification = (function () {
@@ -67545,7 +68034,7 @@ var Notification = (function () {
 }());
 exports.Notification = Notification;
 
-},{"./Observable":405}],405:[function(require,module,exports){
+},{"./Observable":414}],414:[function(require,module,exports){
 "use strict";
 var root_1 = require('./util/root');
 var SymbolShim_1 = require('./util/SymbolShim');
@@ -67670,7 +68159,7 @@ var Observable = (function () {
 }());
 exports.Observable = Observable;
 
-},{"./util/SymbolShim":421,"./util/errorObject":422,"./util/root":426,"./util/toSubscriber":428,"./util/tryCatch":429}],406:[function(require,module,exports){
+},{"./util/SymbolShim":430,"./util/errorObject":431,"./util/root":435,"./util/toSubscriber":437,"./util/tryCatch":438}],415:[function(require,module,exports){
 "use strict";
 exports.empty = {
     isUnsubscribed: true,
@@ -67679,7 +68168,7 @@ exports.empty = {
     complete: function () { }
 };
 
-},{}],407:[function(require,module,exports){
+},{}],416:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -67877,7 +68366,7 @@ var SubjectObservable = (function (_super) {
     return SubjectObservable;
 }(Observable_1.Observable));
 
-},{"./Observable":405,"./Subscriber":408,"./Subscription":409,"./subject/SubjectSubscription":418,"./symbol/rxSubscriber":419,"./util/ObjectUnsubscribedError":420,"./util/throwError":427}],408:[function(require,module,exports){
+},{"./Observable":414,"./Subscriber":417,"./Subscription":418,"./subject/SubjectSubscription":427,"./symbol/rxSubscriber":428,"./util/ObjectUnsubscribedError":429,"./util/throwError":436}],417:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68070,7 +68559,7 @@ var SafeSubscriber = (function (_super) {
     return SafeSubscriber;
 }(Subscriber));
 
-},{"./Observer":406,"./Subscription":409,"./symbol/rxSubscriber":419,"./util/isFunction":424}],409:[function(require,module,exports){
+},{"./Observer":415,"./Subscription":418,"./symbol/rxSubscriber":428,"./util/isFunction":433}],418:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68191,7 +68680,7 @@ var UnsubscriptionError = (function (_super) {
 }(Error));
 exports.UnsubscriptionError = UnsubscriptionError;
 
-},{"./util/errorObject":422,"./util/isArray":423,"./util/isFunction":424,"./util/isObject":425,"./util/tryCatch":429}],410:[function(require,module,exports){
+},{"./util/errorObject":431,"./util/isArray":432,"./util/isFunction":433,"./util/isObject":434,"./util/tryCatch":438}],419:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68284,7 +68773,7 @@ function dispatchError(_a) {
     }
 }
 
-},{"../Observable":405,"../util/root":426}],411:[function(require,module,exports){
+},{"../Observable":414,"../util/root":435}],420:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68345,7 +68834,7 @@ var ObserveOnMessage = (function () {
     return ObserveOnMessage;
 }());
 
-},{"../Notification":404,"../Subscriber":408}],412:[function(require,module,exports){
+},{"../Notification":413,"../Subscriber":417}],421:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 function toPromise(PromiseCtor) {
@@ -68368,7 +68857,7 @@ function toPromise(PromiseCtor) {
 }
 exports.toPromise = toPromise;
 
-},{"../util/root":426}],413:[function(require,module,exports){
+},{"../util/root":435}],422:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68434,7 +68923,7 @@ var FutureAction = (function (_super) {
 }(Subscription_1.Subscription));
 exports.FutureAction = FutureAction;
 
-},{"../Subscription":409,"../util/root":426}],414:[function(require,module,exports){
+},{"../Subscription":418,"../util/root":435}],423:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68463,7 +68952,7 @@ var QueueAction = (function (_super) {
 }(FutureAction_1.FutureAction));
 exports.QueueAction = QueueAction;
 
-},{"./FutureAction":413}],415:[function(require,module,exports){
+},{"./FutureAction":422}],424:[function(require,module,exports){
 "use strict";
 var QueueAction_1 = require('./QueueAction');
 var FutureAction_1 = require('./FutureAction');
@@ -68503,12 +68992,12 @@ var QueueScheduler = (function () {
 }());
 exports.QueueScheduler = QueueScheduler;
 
-},{"./FutureAction":413,"./QueueAction":414}],416:[function(require,module,exports){
+},{"./FutureAction":422,"./QueueAction":423}],425:[function(require,module,exports){
 "use strict";
 var QueueScheduler_1 = require('./QueueScheduler');
 exports.queue = new QueueScheduler_1.QueueScheduler();
 
-},{"./QueueScheduler":415}],417:[function(require,module,exports){
+},{"./QueueScheduler":424}],426:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68585,7 +69074,7 @@ var ReplayEvent = (function () {
     return ReplayEvent;
 }());
 
-},{"../Subject":407,"../operator/observeOn":411,"../scheduler/queue":416}],418:[function(require,module,exports){
+},{"../Subject":416,"../operator/observeOn":420,"../scheduler/queue":425}],427:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68621,7 +69110,7 @@ var SubjectSubscription = (function (_super) {
 }(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 
-},{"../Subscription":409}],419:[function(require,module,exports){
+},{"../Subscription":418}],428:[function(require,module,exports){
 "use strict";
 var SymbolShim_1 = require('../util/SymbolShim');
 /**
@@ -68632,7 +69121,7 @@ var SymbolShim_1 = require('../util/SymbolShim');
  */
 exports.rxSubscriber = SymbolShim_1.SymbolShim.for('rxSubscriber');
 
-},{"../util/SymbolShim":421}],420:[function(require,module,exports){
+},{"../util/SymbolShim":430}],429:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68653,7 +69142,7 @@ var ObjectUnsubscribedError = (function (_super) {
 }(Error));
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 
-},{}],421:[function(require,module,exports){
+},{}],430:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 function polyfillSymbol(root) {
@@ -68723,30 +69212,30 @@ function ensureObservable(Symbol) {
 exports.ensureObservable = ensureObservable;
 exports.SymbolShim = polyfillSymbol(root_1.root);
 
-},{"./root":426}],422:[function(require,module,exports){
+},{"./root":435}],431:[function(require,module,exports){
 "use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 exports.errorObject = { e: {} };
 
-},{}],423:[function(require,module,exports){
+},{}],432:[function(require,module,exports){
 "use strict";
 exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 
-},{}],424:[function(require,module,exports){
+},{}],433:[function(require,module,exports){
 "use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
 exports.isFunction = isFunction;
 
-},{}],425:[function(require,module,exports){
+},{}],434:[function(require,module,exports){
 "use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
 exports.isObject = isObject;
 
-},{}],426:[function(require,module,exports){
+},{}],435:[function(require,module,exports){
 (function (global){
 "use strict";
 var objectTypes = {
@@ -68768,12 +69257,12 @@ if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === fre
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],427:[function(require,module,exports){
+},{}],436:[function(require,module,exports){
 "use strict";
 function throwError(e) { throw e; }
 exports.throwError = throwError;
 
-},{}],428:[function(require,module,exports){
+},{}],437:[function(require,module,exports){
 "use strict";
 var Subscriber_1 = require('../Subscriber');
 var rxSubscriber_1 = require('../symbol/rxSubscriber');
@@ -68790,7 +69279,7 @@ function toSubscriber(nextOrObserver, error, complete) {
 }
 exports.toSubscriber = toSubscriber;
 
-},{"../Subscriber":408,"../symbol/rxSubscriber":419}],429:[function(require,module,exports){
+},{"../Subscriber":417,"../symbol/rxSubscriber":428}],438:[function(require,module,exports){
 "use strict";
 var errorObject_1 = require('./errorObject');
 var tryCatchTarget;
@@ -68810,9 +69299,9 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 
-},{"./errorObject":422}],430:[function(require,module,exports){
+},{"./errorObject":431}],439:[function(require,module,exports){
 
-},{}]},{},[1,430])
+},{}]},{},[1,439])
 
 
 //# sourceMappingURL=app.bundle.js.map

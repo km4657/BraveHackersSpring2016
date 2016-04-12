@@ -1,12 +1,15 @@
 <ion-card *ngFor="#c of story.getClues()">
     <ion-card-header (click)="selected=c">
-        <p>{{c.text}}</p>
+        <ion-item>
+            <ion-label class="wrap"> {{c.text}}</ion-label>
+        </ion-item>
     </ion-card-header>
 
-    <ion-card-content *ngIf="selected===c">
+    <ion-card-content>
         <ion-list radio-group [(ngModel)]="c.selectedClue" (change)="c.showHint=false;c.validate=false">
             <ion-list-header>
-                {{c.question}}
+
+                <p class="wrap"> {{c.question}} </p>
             </ion-list-header>
 
             <ion-item *ngFor="#a of c.answers">
@@ -30,5 +33,9 @@
                 </button>
             </ion-item>
         </ion-list>
+        
+        <ion-item *ngIf="story.story.notes.completedHypothesis">
+            All answers are correct. Click on the Data Table to continue.
+        </ion-item>
     </ion-card-content>
 </ion-card>

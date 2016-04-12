@@ -6,6 +6,13 @@
             "info" : "AT&T • 2016",
             "beacon" : "none",
             "found" :  true      
+        },
+         {
+            "name" : "The Missing Animal",
+            "file" : "missions/missinganimal.json",
+            "info" : "AT&T • 2016",
+            "beacon" : "mint",
+            "found" :  false     
         }
     ]
 }

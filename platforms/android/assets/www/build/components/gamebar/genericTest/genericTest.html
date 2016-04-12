@@ -1,0 +1,23 @@
+<status [userTotal]="story.story.userTotal" [pointsTotal]="story.story.pointsTotal"></status>
+
+<ion-content>
+    <section id="game">
+        <ion-col id="main">
+            <video-window>
+                <img [src]="background">
+            </video-window>
+            <video-text>
+            </video-text>
+        </ion-col>
+    </section>
+
+    <ion-list>        
+        <quiz [question]="question" 
+              [answers] ="answers"
+              [answer] = "answer" 
+              (result) = "checkResult()"
+        > </quiz>
+    </ion-list>
+</ion-content>
+ 
+ <gamebar></gamebar>

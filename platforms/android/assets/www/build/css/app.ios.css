@@ -7608,93 +7608,72 @@ body {
   font-size: 1.4rem;
   background-color: #fff; }
 
-.stage {
-  width: 47%;
-  height: 100px;
-  background: #efefef;
-  margin: 0 1%;
-  border: 1px solid #111;
-  float: left;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden; }
-  .stage div {
-    width: 50px;
-    height: 100px;
-    background: #7a3;
-    position: absolute; }
-    .stage div.obj01 {
-      left: 50%;
-      margin-left: -25px;
-      -webkit-animation: fade-in 5s 2s infinite;
-      animation: fade-in 5s 2s infinite; }
-    .stage div.obj02 {
-      -webkit-animation: walk-in ease-in-out 5s infinite;
-      animation: walk-in ease-in-out 5s infinite; }
-
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-
-@keyframes fade-in {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-
-@-webkit-keyframes walk-in {
-  from {
-    left: -100px; }
-  to {
-    left: calc(100%); } }
-
-@keyframes walk-in {
-  from {
-    left: -100px; }
-  to {
-    left: calc(100%); } }
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 3 0px;
-  height: 0;
-  overflow: hidden; }
-
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 3 0px;
-  height: 0;
-  overflow: hidden; }
-
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
-
+/*
+@import "../pages/sensors/sensors";
+@import "../pages/video/video";
+@import "../pages/wikipedia/wikipedia";
+@import "../pages/notes/notes";
+@import "../pages/secretmissions/secretmissions";
+@import "../pages/messages/messages";
+@import "../pages/cluemap/cluemap";*/
 #start {
   background: black;
   color: white; }
   #start header {
-    margin: 10px; }
+    background: #a15a97;
+    height: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative; }
+    #start header:after {
+      content: '';
+      background: url(../../img/AoSBadge.png) no-repeat 0 0;
+      height: 119px;
+      width: 109px;
+      position: absolute;
+      right: -5px;
+      top: 5px;
+      z-index: 9999; }
+    #start header h1 {
+      margin: 0;
+      padding: 8px 15px;
+      text-shadow: 2px 2px 5px black; }
   #start #status-bar {
     border-radius: 10px; }
+  #start .userDetails {
+    background: none;
+    box-shadow: none; }
+    #start .userDetails .item {
+      background: none; }
+      #start .userDetails .item .item-button {
+        background: none; }
+        #start .userDetails .item .item-button.login {
+          background: #387ef5; }
+  #start .tg-wrap {
+    margin: 0 auto; }
+    #start .tg-wrap .tg th {
+      font: 16px 'Handlee', cursive;
+      background: #b9dad8; }
+    #start .tg-wrap .tg td, #start .tg-wrap .tg th {
+      border-color: #fff;
+      color: #333; }
+  #start ion-card-header.heading {
+    font: 24px 'Handlee', cursive; }
+  #start ion-card {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+    background: #fff5b5; }
+  #start ion-card ion-list .item {
+    padding: 0; }
+  #start ion-list .item-inner {
+    border: 0; }
+  #start .missions ion-item-divider {
+    background: none;
+    border-bottom: 1px solid #aaa; }
+  #start .missions ion-card {
+    margin: 0;
+    border-bottom: 1px solid #aaa;
+    background: #fff; }
+    #start .missions ion-card .item {
+      background: none; }
 
 ion-navbar#game-nav {
   position: absolute;
@@ -7702,17 +7681,13 @@ ion-navbar#game-nav {
   height: 50px;
   top: initial; }
 
-#game-title {
-  font-size: 7.5vw;
-  margin: auto;
-  text-align: center;
-  padding: 10px;
-  background: darkblue; }
-
 ion-avatar img {
   max-width: 8.6rem;
   max-height: 8.6rem;
   border-radius: 1.8rem; }
+
+ion-toolbar {
+  padding-bottom: 20px; }
 
 #status-bar {
   margin: 0 auto;
@@ -7726,11 +7701,31 @@ ion-avatar img {
     float: left;
     width: 50%;
     height: 80%;
-    padding: 0 10px;
+    padding: 0 10px 0 85px;
     color: rgba(255, 255, 255, 0.8);
-    border-right: 1px solid rgba(255, 255, 255, 0.25); }
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    position: relative;
+    font-size: 20px; }
     #status-bar section:last-child {
       border: 0; }
+    #status-bar section i {
+      background: url(../../img/footerSprite.png) no-repeat;
+      display: block;
+      width: 55px;
+      height: 70px;
+      position: absolute;
+      top: -5px;
+      left: 10px;
+      padding: 18px 20px;
+      font-size: 32px;
+      font-style: normal;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
+      #status-bar section i.badge {
+        background-position: center -440px; }
+      #status-bar section i.coin {
+        background-position: center -550px; }
 
 .tg {
   border-collapse: collapse;
@@ -7782,6 +7777,41 @@ ion-avatar img {
     margin: auto 0px;
     margin: 15px; } }
 
+/* ============================================================
+  COMMON
+============================================================ */
+#wrapper {
+  min-width: 600px; }
+
+.settings {
+  display: table;
+  width: 100%; }
+
+.settings .row {
+  display: table-row; }
+
+.settings .question,
+.settings .switch {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px; }
+
+.settings .question {
+  width: 600px;
+  font-family: "Roboto Slab", serif;
+  font-size: 20px; }
+
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #555; }
+
+input[type='checkbox']:checked {
+  background: #abd; }
+
 .wrap {
   white-space: normal; }
 
@@ -7806,10 +7836,17 @@ p {
   stroke-linecap: round;
   pointer-events: none; }
 
+#map-title {
+  font-family: handlee;
+  font-size: 2.25em;
+  font-weight: bold;
+  fill: black;
+  color: black; }
+
 .toolbar {
   min-height: 120px; }
 
-#tool-bar {
+#game-bar {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -7826,21 +7863,21 @@ p {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
-  #tool-bar bar {
+  #game-bar bar {
     display: block; }
-  #tool-bar button {
+  #game-bar button {
     padding-top: 80px;
     height: 100px;
     width: 23%;
     background: url(../../img/footerSprite.png) no-repeat;
     color: #333; }
-    #tool-bar button.messages {
+    #game-bar button.messages {
       background-position: center 10px; }
-    #tool-bar button.backpack {
+    #game-bar button.backpack {
       background-position: center -100px; }
-    #tool-bar button.notes {
+    #game-bar button.notes {
       background-position: center -215px; }
-    #tool-bar button.help {
+    #game-bar button.help {
       background-position: center -330px; }
 
 #backpack {
@@ -7868,17 +7905,17 @@ p {
       text-align: center; }
       #backpack ion-row ion-col > ion-icon i {
         display: block;
-        padding-top: 100px;
-        height: 0;
-        overflow: hidden;
+        padding-top: 55px;
+        height: 50px;
         position: relative;
-        color: #903f98; }
+        color: #903f98;
+        font: 14px 'Handlee', cursive; }
         #backpack ion-row ion-col > ion-icon i:before {
           position: absolute;
           top: 10px;
           left: 50%;
-          margin-left: -32px;
-          font: 70px 'icomoon'; }
+          margin-left: -20px;
+          font: 42px 'icomoon'; }
         #backpack ion-row ion-col > ion-icon i.icon-dice:before {
           content: "\e902"; }
         #backpack ion-row ion-col > ion-icon i.icon-magGlass:before {
@@ -7900,14 +7937,14 @@ p {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.eot?uxa217");
-  src: url("../fonts/icomoon.eot?uxa217#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?uxa217") format("truetype"), url("../fonts/icomoon.woff?uxa217") format("woff"), url("../fonts/icomoon.svg?uxa217#icomoon") format("svg");
+  src: url("../fonts/icomoon.eot");
+  src: url("../fonts/icomoon.eot#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'icomoon';
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -7918,52 +7955,94 @@ p {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.chat {
-  width: 400px; }
+#messages {
+  padding: 10px;
+  margin-top: 15px;
+  height: calc(100% - 50px); }
+  #messages ion-list.next {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0; }
+  #messages .chatrow {
+    width: 100%;
+    display: inline-block; }
+    #messages .chatrow .usericon-r {
+      display: inline-block;
+      margin: 10px;
+      width: 48px;
+      float: right; }
+    #messages .chatrow .bubbler {
+      display: inline-block;
+      width: 250px;
+      float: right; }
+  #messages .chatrowl {
+    position: relative;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+    background: none; }
+    #messages .chatrowl .usericonl {
+      display: inline-block;
+      margin: 5px;
+      min-width: 48px; }
+    #messages .chatrowl .bubblel {
+      display: inline-block;
+      width: 250px; }
+
+.item {
+  background: rgba(255, 255, 255, 0.5); }
+  .item .item-button {
+    background: #fff; }
 
 .bubble {
-  background-color: #F2F2F2;
-  border-radius: 5px;
-  box-shadow: 0 0 6px #B2B2B2;
-  display: inline-block;
-  padding: 10px 18px;
-  position: relative;
-  vertical-align: top; }
+  background-image: linear-gradient(bottom, #d2f4fe 25%, #95c2fd 100%);
+  background-image: -webkit-linear-gradient(bottom, #d2f4fe 25%, #95c2fd 100%);
+  background-image: -ms-linear-gradient(bottom, #d2f4fe 25%, #95c2fd 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #d2f4fe), color-stop(1, #95c2fd));
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  clear: both;
+  margin-bottom: 20px;
+  padding: 8px 30px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  max-width: 100%;
+  word-wrap: break-word; }
+  .bubble:before, .bubble:after {
+    border-radius: 20px / 10px;
+    content: '';
+    display: block;
+    position: absolute; }
 
-.bubble::before {
-  background-color: #F2F2F2;
-  content: "\00a0";
-  display: block;
-  height: 16px;
-  position: absolute;
-  top: 11px;
-  transform: rotate(29deg) skew(-35deg);
-  -moz-transform: rotate(29deg) skew(-35deg);
-  -ms-transform: rotate(29deg) skew(-35deg);
-  -o-transform: rotate(29deg) skew(-35deg);
-  -webkit-transform: rotate(29deg) skew(-35deg);
-  width: 20px; }
-
-.me {
-  float: left;
-  margin: 5px 45px 5px 20px; }
-
-.me::before {
-  box-shadow: -2px 2px 2px 0 rgba(178, 178, 178, 0.4);
-  left: -9px; }
-
-.you {
-  float: right;
-  margin: 5px 20px 5px 45px; }
-
-.you::before {
-  box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, 0.4);
-  right: -9px; }
+.bubblealt {
+  background-image: linear-gradient(bottom, #ace44b 25%, #7acd47 100%);
+  background-image: -webkit-linear-gradient(bottom, #ace44b 25%, #7acd47 100%);
+  background-image: -ms-linear-gradient(bottom, #ace44b 25%, #7acd47 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #ace44b), color-stop(1, #7acd47));
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  clear: both;
+  margin-bottom: 20px;
+  padding: 8px 30px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  max-width: 100%;
+  word-wrap: break-word; }
 
 .clue-text {
   white-space: normal; }
 
-.clue-text {
+.notebook .btnRow {
+  margin-left: 10px; }
+
+.notebook ion-label {
+  overflow: visible;
+  text-overflow: inherit;
   white-space: normal; }
 
 ion-page {
